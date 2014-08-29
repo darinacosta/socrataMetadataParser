@@ -5,8 +5,9 @@ function getJSONCatalog(){
   return metaset;
 }
 
-function getMetadata(url) {
+function getMetadata(id) {
   Utilities.sleep(1000);
+  var url = "https://data.nola.gov/api/views/" + id + ".json";
   var json = UrlFetchApp.fetch(url);
   metadata = JSON.parse(json);
   return metadata;
@@ -23,7 +24,7 @@ function populateMeta(){
 
   for (var entry=1; entry <= metaset.length; entry++) {
     
-    var metadata = getMetadata(metaset[entry].webService);
+    var metadata = getMetadata(metaset[entry].identifier);
     var dataFormat = metaset[entry].format;
 
     var metaCol = "D" + row;
@@ -48,5 +49,5 @@ function populateMeta(){
   }
 
   row = row + 1;
-  //TEST  
+    
 }
